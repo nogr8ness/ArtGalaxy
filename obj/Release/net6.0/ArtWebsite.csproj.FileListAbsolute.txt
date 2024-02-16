@@ -1,0 +1,9 @@
+C:\Users\Kabir\source\repos\ArtWebsite\ArtWebsite\obj\Release\net6.0\ArtWebsite.csproj.AssemblyReference.cache
+C:\Users\Kabir\source\repos\ArtWebsite\ArtWebsite\obj\Release\net6.0\ArtWebsite.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kabir\source\repos\ArtWebsite\ArtWebsite\obj\Release\net6.0\ArtWebsite.AssemblyInfoInputs.cache
+C:\Users\Kabir\source\repos\ArtWebsite\ArtWebsite\obj\Release\net6.0\ArtWebsite.AssemblyInfo.cs
+C:\Users\Kabir\source\repos\ArtWebsite\ArtWebsite\obj\Release\net6.0\ArtWebsite.csproj.CoreCompileInputs.cache
+C:\Users\Kabir\source\repos\ArtWebsite\ArtWebsite\obj\Release\net6.0\ArtWebsite.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Kabir\source\repos\ArtWebsite\ArtWebsite\obj\Release\net6.0\ArtWebsite.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Kabir\source\repos\ArtWebsite\ArtWebsite\obj\Release\net6.0\ArtWebsite.RazorAssemblyInfo.cache
+C:\Users\Kabir\source\repos\ArtWebsite\ArtWebsite\obj\Release\net6.0\ArtWebsite.RazorAssemblyInfo.cs

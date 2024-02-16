@@ -1,0 +1,74 @@
+﻿@model ArtWebsite.Models.ViewModels.UploadStoryViewModel
+
+@{
+    ViewData["Title"] = "Story";
+}
+
+<style>
+    .form-control {
+        background-color: linen;
+    }
+</style>
+
+<h1>Upload Story</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Story" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-floating">
+                <label asp-for="Title" class="form-text"></label>
+                <div class="mb-3">
+                    <input asp-for="Title" class="form-control" style="height:4.5em; padding-top:1.5rem"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-floating">
+                <label asp-for="Description" class="form-text"></label>
+    
+                <div class="mb-3">
+                    <textarea asp-for="Description" class="form-control" style="padding-top:2rem"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-floating">
+                <label asp-for="Content" class="form-text"></label>
+
+                <div class="mb-3">
+                    <textarea asp-for="Content" class="form-control" style="padding-top:2rem" 
+                        placeholder="Copy and paste or type your story here..."></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+            </div>
+
+            <fieldset class="form-group">
+                <legend class="mt-4">Do you want to publish this art?</legend>
+
+                <div class="form-check">
+                    @Html.RadioButtonFor(m => m.IsPublished, true, new { @class="form-check-input", @checked="checked" })
+                    @Html.LabelFor(m => m.IsPublished, "Yes, publish", new { @class="form-check-label" })
+                </div>
+
+                <div class="form-check">
+                    @Html.RadioButtonFor(m => m.IsPublished, false, new { @class="form-check-input" })
+                    @Html.LabelFor(m => m.IsPublished, "No, don't publish", new { @class="form-check-label" })
+                </div>
+            </fieldset>
+
+            <br />
+
+            <div class="form-floating">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,419 @@
+﻿@using System.Web
+@model ArtWebsite.Models.ViewModels.DisplayViewModel
+
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "View";
+}
+
+
+<style>
+    b {
+        font-size: 24px !important;
+    }
+
+    .word-wrap {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+
+    .white-color {
+        color: white;
+    }
+
+    #truncatedContent, #expandedContent {
+        font-size: 20px;
+        margin-top: -7rem;
+    }
+
+    .counter-text {
+        font-size: 30px; /* Adjust the font size as needed */
+        margin-right: 15px; /* Add margin for better spacing */
+    }
+
+    .tooltip-inner {
+        background-color: black;
+        color: white;
+        margin-bottom: 15px;
+    }
+
+    .like-button {
+        text-decoration: none;
+        margin-left: 40px;
+        margin-bottom: 15px;
+    }
+
+    .like-button:disabled {
+        color: white;
+    }
+</style>
+
+
+
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+<script>
+    var likeCountElement;
+    var likeIcon;
+    var likeButton;
+    var type;
+    var id;
+    var liked;
+
+    $(document).ready(function() { 
+        liked = "@Model.IsLiked".toString().toLowerCase() === 'true';
+
+
+        type = '@ViewData["Type"]';
+        id = @ViewData["Id"];
+
+        if (type == "art" || type == "Art") {
+            likeCountElement = $("#like-count-art");
+            likeIcon = $("#like-icon-art");
+            likeButton = $("#like-btn-art");
+        } else if (type == "story" || type == "Story") {
+            likeCountElement = $("#like-count-story");
+            likeIcon = $("#like-icon-story");
+            likeButton = $("#like-btn-story");
+        }
+
+        var loggedIn = "@User.Identity.IsAuthenticated".toString().toLowerCase() === "true";
+        if(!loggedIn) {
+            likeButton.prop('disabled', true);
+
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+              return new bootstrap.Tooltip(tooltipTriggerEl, {
+                delay: { "show": 0, "hide": 0 }, 
+                title: "Create an account or log in to like this post.",
+                placement: "top"
+              });
+            });
+        }
+
+        
+
+        if(liked) {
+            console.log("this is liked");
+            likeIcon.addClass("fas").removeClass("far"); // Change to solid heart icon
+            likeButton.addClass("text-danger"); // Change button color to red (or orange)
+            likeButton.removeClass(("white-color"));
+        }
+    });
+
+    function toggleLike() {
+        var loggedIn = "@User.Identity.IsAuthenticated".toString().toLowerCase() === "true";
+
+        if(loggedIn) {
+
+            // Disable the like button
+            likeButton.prop('disabled', true);
+
+            //Add a like
+            if(!liked) {
+                var currentLikes = parseInt(likeCountElement.text()) + 1;
+
+                likeCountElement.text(currentLikes.toString());
+                likeIcon.addClass("fas").removeClass("far");
+                likeButton.addClass("text-danger");
+                likeButton.removeClass("white-color");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Portfolio/Like",
+                    data: { id: id, type: type },
+                    success: function (response) {
+                        // Enable the like button
+                        likeButton.prop('disabled', false);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors if needed
+                        console.error("Error toggling like:", error);
+
+                        // Enable the like button
+                        likeButton.prop('disabled', false);
+                    }
+                });
+            }
+
+            //Remove a like
+            else {
+                var currentLikes = parseInt(likeCountElement.text()) - 1;
+
+                likeCountElement.text(currentLikes.toString());
+                likeIcon.addClass("far").removeClass("fas");
+                likeButton.removeClass("text-danger");
+                likeButton.addClass("white-color");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Portfolio/Unlike",
+                    data: { id: id, type: type },
+                    success: function (response) {
+                        // Enable the like button
+                        likeButton.prop('disabled', false);
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors if needed
+                        console.error("Error toggling like:", error);
+
+                        // Enable the like button
+                        likeButton.prop('disabled', false);
+                    }
+                });
+            }
+
+            
+
+            liked = !liked;
+        }
+    }
+
+   
+
+    
+</script>
+
+@* View Art *@
+@if (Model.Artwork != null) {
+    <div class="card">
+        <div class="card-body">
+
+            <!-- Header Styling (Title) -->
+            <div class="container mt-4">
+                <h1 class="display-3" style="font-weight: bolder">@Model.Artwork.Title 
+                    @if(User.Identity.IsAuthenticated && User.Identity.Name == Model.Artwork.User.UserName) {
+                        <a href="/Portfolio/EditArt?id=@Model.Artwork.Id" class="btn btn-primary">
+                            <i class="fas fa-pencil-alt"></i> Edit
+                        </a>
+                    }
+                </h1>
+            </div>
+
+            <!-- Author Information above the image -->
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="data:image/jpeg;base64, @Convert.ToBase64String(Model.Artwork.User.ProfilePic)" alt="Profile" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+                        <b>@Model.Artwork.User.DisplayName</b>
+                    </div>
+                    <div class="col-6 text-end text-muted">
+                        <i class="far fa-calendar-alt"></i> @Model.Artwork.DatePosted.ToString("MMMM dd, yyyy")
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Styling with Counters -->
+            <div class="container mt-4 position-relative">
+                <div class="card p-4" style="position: relative; overflow: visible;">
+
+                    
+
+                    
+
+                    @{
+                        var base64Image = Convert.ToBase64String(Model.Artwork.Image); 
+                                                    <img src="data:image/jpeg;base64, @base64Image" alt="Image" class="img-fluid rounded"/>
+                    }
+                </div>
+            </div>
+
+          
+
+            <!-- Description Styling -->
+            @if(!string.IsNullOrWhiteSpace(Model.Artwork.Description))
+            {
+                <div class="container mt-4">
+                    <div class="p-4">
+                        <h2>Description</h2>
+                        <p class="ms-3">@Model.Artwork.Description</p>
+                    </div>
+                </div>
+            }
+            <br>
+            <hr class="mt-4" style="border-top: 3px solid;">
+
+            <!-- Views Counter -->
+            <span class="views-counter counter-text">
+                <i class="far fa-eye"></i> @Model.Artwork.Views
+            </span>
+
+            <!-- Like Button -->
+            @{
+
+            }
+
+            <span data-bs-toggle="tooltip">
+                <button class="btn btn-link like-button white-color" id="like-btn-art" onclick="toggleLike()">
+                        
+                    <span class="counter-text">
+                        <i class="far fa-heart" id="like-icon-art"></i> <span id=like-count-art>@Model.Artwork.Likes</span>
+                    </span>
+                </button>
+            </span>
+            
+        
+            <!-- Comment Section -->
+            <div class="container mt-4">
+                <div class="p-4">
+                    <h2>Comments</h2>
+                    @if (Model.Artwork.Comments == null)
+                    {
+                        <p>No comments yet. Be the first to comment!</p>
+                    }
+                    else
+                    {
+                        <!-- Render comments here -->
+                    }
+                </div>
+            </div>
+
+            <!-- Buttons for Interaction -->
+            <button class="btn btn-primary mt-3">Add Comment</button>
+        </div>
+    </div>
+}
+
+@*View Story*@
+@if (Model.Story != null)
+{
+    <div class="container mt-4">
+        <div class="card p-4">
+            <div class="card-body">
+
+                <!-- Title and Edit Button -->
+                <div class="d-flex justify-content-between">
+                    <h1 class="display-4" style="font-weight: bolder">@Model.Story.Title
+                        @if(User.Identity.IsAuthenticated && User.Identity.Name == Model.Story.User.UserName) {
+
+                            <a href="/Portfolio/EditStory?id=@Model.Story.Id" class="btn btn-primary">
+                                    <i class="fas fa-pencil-alt"></i> Edit
+                            </a>
+
+                        }
+                    </h1>
+
+                    <!-- Edit Button -->
+                    @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.Story.User.Email)
+                    {
+                        <a href="/Portfolio/EditStory?&id=@Model.Story.Id" class="btn btn-primary">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                        </a>
+                    }
+
+                
+                </div>
+
+                <!-- Publisher Information -->
+                <div class="d-flex align-items-center mt-2">
+                    <img src="data:image/jpeg;base64, @Convert.ToBase64String(Model.Story.User.ProfilePic)" alt="Profile" class="img-thumbnail me-2" style="max-width: 50px; max-height: 50px;">
+                    <b>@Model.Story.User.DisplayName</b>
+                </div>
+
+                <!-- Date Published -->
+                <div class="text-end">
+                    <div class="text-muted">
+                        <i class="far fa-calendar-alt"></i> @Model.Story.DatePosted.ToString("MMMM dd, yyyy")
+                    </div>
+                </div>
+
+                <hr class="mt-4" style="border-top: 3px solid;">
+
+                <!-- Estimated Reading Time -->
+                <div class="text-end text-muted">
+                    <i class="far fa-clock"></i> @Html.Raw(@Model.Story.ReadingTime >= 2 ? $"{Model.Story.ReadingTime} minutes" : "<2 minutes")
+                </div>
+
+                <!-- Description -->
+                @if (!string.IsNullOrWhiteSpace(Model.Story.Description))
+                {
+                    <h2>Description</h2>
+                    <p class="mt-3">@Model.Story.Description</p>     
+                }
+
+                <hr class="mt-4" style="border-top: 3px solid;">
+
+                @*FIX STORY DISPLAY IT LOOKS BAD RIGHT NOW [VIEW AND LIKE BUTTON]*@
+
+                <!-- Content -->
+                <div class="mt-3 word-wrap position-relative" style="white-space: pre-line;">
+
+                    
+
+                    
+
+                    @if (Model.Story.Content.Length > 500)
+                    {
+                        <!-- Display some content with an option to expand -->
+                        <p id="truncatedContent">@Html.Raw(HttpUtility.HtmlEncode(Model.Story.Content.Substring(0, 500)))</p>
+                        <p id="expandedContent" style="display: none;">@Html.Raw(HttpUtility.HtmlEncode(Model.Story.Content))</p>
+                        <span id="expandContent" style="cursor: pointer; color: deepskyblue;">(more)</span>
+                        <span id="collapseContent" style="cursor: pointer; color: deepskyblue; display: none">(less)</span>
+                    }
+                    else
+                    {
+                        <!-- Display the entire content if it's shorter -->
+                        <p>@Html.Raw(HttpUtility.HtmlEncode(Model.Story.Content))</p>
+                    }
+                </div>
+
+
+
+                <hr class="mt-4" style="border-top: 3px solid;">
+
+                <!-- Views Counter -->
+                <span class="views-counter counter-text">
+                    <i class="far fa-eye"></i> @Model.Story.Views
+                </span>
+
+                <!-- Like Button -->
+                <span data-bs-toggle="tooltip">
+                    <button class="btn btn-link like-button white-color" id="like-btn-story" onclick="toggleLike()"
+                            style="margin-bottom: 15px">
+
+                        <span class="counter-text">
+                            <i class="far fa-heart" id="like-icon-story"></i> <span id="like-count-story">@Model.Story.Likes</span>
+                        </span>
+                    </button>
+                </span>
+
+                <br /><br />
+
+                <!-- Comments Section -->
+                <div class="mt-4">
+                    <h4>Comments</h4>
+                    <!-- Add your comment section here -->
+                </div>
+
+                <!-- Button to Add Comment -->
+                <button class="btn btn-primary mt-3">Add Comment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to handle expanding content -->
+    <script>
+        document.getElementById('expandContent').addEventListener('click', function () {
+            document.getElementById('truncatedContent').style.display = 'none';
+            document.getElementById('expandedContent').style.display = 'block';
+            document.getElementById('collapseContent').style.display = 'block';
+            this.style.display = 'none';
+        });
+
+        document.getElementById('collapseContent').addEventListener('click', function () {
+            document.getElementById('truncatedContent').style.display = 'block';
+            document.getElementById('expandedContent').style.display = 'none';
+            document.getElementById('expandContent').style.display = 'block';
+            this.style.display = 'none';
+
+            window.scrollTo(0, 0);
+        });
+    </script>
+
+}
+

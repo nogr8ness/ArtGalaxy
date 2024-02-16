@@ -1,0 +1,133 @@
+﻿@model ArtWebsite.Models.ViewModels.EditStoryViewModel
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Edit Story";
+}
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    function confirmDelete(type) {
+        // Display a loading spinner or any indication of processing
+        // (Optional: you can use a library like SweetAlert for better UI/UX)
+
+        var id = '@Model.Id';
+
+        // Make an AJAX request to the Delete action in your PortfolioController
+        $.ajax({
+            url: '@Url.Action("Delete", "Portfolio")', // Adjust the URL based on your project's routing
+            type: 'POST', // Or 'GET' depending on your controller method
+            data: { id: id,
+                    type: type }, // Pass the ID or any other necessary data
+            success: function (result) {
+                // Handle success - close the modal, update UI, etc.
+                $('#deleteConfirmationModal').modal('hide');
+
+                // Redirect to a different page after successful deletion
+                window.location.href = '@Url.Action("Index", "Portfolio")'; // Adjust the URL as needed
+            },
+            error: function (error) {
+                // Handle error - display an error message, log, etc.
+                console.error('Error deleting artwork:', error);
+            }
+        });
+    }
+</script>
+
+<h1>Edit Story</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditStory" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-floating">
+                <label asp-for="Title" class="form-text"></label>
+                <div class="mb-3">
+                    <input asp-for="Title" class="form-control" style="height:4.5em; padding-top:1.5rem"/>
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-floating">
+                <label asp-for="Description" class="form-text"></label>
+
+                <div class="mb-3">
+                    <textarea asp-for="Description" class="form-control" style="padding-top:2rem"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-floating">
+                <label asp-for="Content" class="form-text"></label>
+
+                <div class="mb-3">
+                    <textarea asp-for="Content" class="form-control" style="padding-top:2rem" 
+                        placeholder="Copy and paste or type your story here..."></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+            </div>
+
+            <fieldset class="form-group">
+                <legend class="mt-4">Do you want to publish this story?</legend>
+
+                <div class="form-check">
+                    @Html.RadioButtonFor(m => m.IsPublished, true, 
+                        new { @id = "", @class="form-check-input", @checked="true" })
+
+                    @Html.LabelFor(m => m.IsPublished, "Yes, publish", new { @class="form-check-label" })
+                </div>
+
+
+                <div class="form-check">
+                    @Html.RadioButtonFor(m => m.IsPublished, false, 
+                        new { @id = "", @class="form-check-input" })
+
+                    @Html.LabelFor(m => m.IsPublished, "No, don't publish", new { @class="form-check-label" })
+                </div>
+            </fieldset>
+
+            <br />
+
+            <div class="form-floating">
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    @*Delete button*@
+    <div class="form-floating text-end mt-2">
+        <button id="deleteButton" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">Delete</button>
+    </div>
+</div>
+
+@*Delete Confirmation Modal*@
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the story "@Model.Title"? This can't be undone!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button id="confirmDeleteButton" type="button" class="btn btn-danger" onclick="confirmDelete('story')">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
