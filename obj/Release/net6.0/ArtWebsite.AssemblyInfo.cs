@@ -11,12 +11,11 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-ArtWebsite-1450F7DF-B713-4DE4-9F87-768D0420C340")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArtWebsite")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+959897eb76e12bc9df1aca4a4213cf0ad6a0b7c6")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArtWebsite")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArtWebsite")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

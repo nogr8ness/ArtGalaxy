@@ -1,8 +1,107 @@
-﻿@{
+﻿@model IEnumerable<ArtWebsite.Models.IContent>
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    /* .dropdown-menu {
+        background-color: rgba(0, 0, 0, 0.9); /* Dark background color */
+    } */
+
+    .dropdown-menu a {
+        color: #fff; /* White text color */
+    }
+
+    /* .dropdown-menu a:hover {
+        background-color: rgba(0, 0, 0, 0.7); /* Darker background color on hover */
+    } */
+
+    .dropdown-toggle:hover {
+        color: #fff; /* Darker text color on hover */
+    }
+
+</style>
+
+
+
+
+<h1><b>Featured</b></h1>
+
+@*Dropdowns for filtering and sorting*@
+<div class="dropdown" style="display: inline-block;">
+    <button class="btn btn-dark dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Filter: All
+    </button>
+    <div class="dropdown-menu" aria-labelledby="filterDropdown">
+        <a class="dropdown-item" href="#" data-bs-value="all">All</a>
+        <a class="dropdown-item" href="#" data-bs-value="art">Artworks</a>
+        <a class="dropdown-item" href="#" data-bs-value="story">Stories</a>
+    </div>
 </div>
+
+<div class="dropdown" style="display: inline-block;">
+    <button class="btn btn-dark dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort: Featured
+    </button>
+    <div class="dropdown-menu" aria-labelledby="sortDropdown">
+        <a class="dropdown-item" href="#" data-bs-value="featured">Featured</a>
+        <a class="dropdown-item" href="#" data-bs-value="newest">Newest</a>
+        <a class="dropdown-item" href="#" data-bs-value="mostliked">Most Liked</a>
+    </div>
+</div>
+
+
+<div class="col-md-4" style="display: inline-block">
+    <button class="btn btn-primary" onclick="applyFilters()">Apply</button>
+</div>
+
+@foreach (var content in Model)
+{
+    <div>
+        <h2>@content.Title</h2>
+        <p>@content.Description</p>
+        <p>Date Posted: @content.DatePosted</p>
+        <p>Likes: @content.Likes</p>
+        @if (content is Artwork)
+        {
+            <p>This is an artwork.</p>
+        }
+        else if (content is Story)
+        {
+            <p>This is a story.</p>
+        }
+    </div>
+}
+
+@section Scripts {
+
+    
+    <script>
+        // Function to update dropdown button text
+        function updateDropdownText(dropdownId, newText) {
+            $(dropdownId).html(newText);
+        }
+
+        // Event listener for filter dropdown items
+        $("#filterDropdown .dropdown-item").on("click", function () {
+            var selectedText = $(this).text();
+            updateDropdownText("#filterDropdown", "Filter: " + selectedText);
+        });
+
+        // Event listener for sort dropdown items
+        $("#sortDropdown .dropdown-item").on("click", function () {
+            var selectedText = $(this).text();
+            updateDropdownText("#sortDropdown", "Sort: " + selectedText);
+        });
+
+        // Function to apply filters
+        function applyFilters() {
+            var filter = $("#filterDropdown .dropdown-toggle").text().split(": ")[1].toLowerCase();
+            var sort = $("#sortDropdown .dropdown-toggle").text().split(": ")[1].toLowerCase();
+            window.location.href = "/Home/Index?type=" + filter + "&sort=" + sort;
+        }
+
+    </script>
+}

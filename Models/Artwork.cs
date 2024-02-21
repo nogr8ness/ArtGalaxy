@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Identity;
 
 
-    public class Artwork
+    public class Artwork : IContent
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

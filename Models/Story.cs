@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Identity;
 
 
-    public class Story
+    public class Story : IContent
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
