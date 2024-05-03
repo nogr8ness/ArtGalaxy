@@ -1,5 +1,5 @@
-using ArtWebsite.Data;
-using ArtWebsite.Models;
+using ArtGalaxy.Data;
+using ArtGalaxy.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -49,10 +49,48 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-            name: "customViewRoute",
+            name: "view",
             pattern: "View/{type}/{id}",
             defaults: new { controller = "Portfolio", action = "View" }
         );
+
+app.MapControllerRoute(
+            name: "like",
+            pattern: "/Portfolio/Like",
+            defaults: new { controller = "Portfolio", action = "Like" }
+        );
+
+app.MapControllerRoute(
+            name: "unlike",
+            pattern: "/Portfolio/Unlike",
+            defaults: new { controller = "Portfolio", action = "Unlike" }
+        );
+
+app.MapControllerRoute(
+            name: "likeComment",
+            pattern: "/Portfolio/LikeComment",
+            defaults: new { controller = "Portfolio", action = "LikeComment" }
+        );
+
+app.MapControllerRoute(
+            name: "unlikeComment",
+            pattern: "/Portfolio/UnlikeComment",
+            defaults: new { controller = "Portfolio", action = "UnlikeComment" }
+        );
+
+app.MapControllerRoute(
+            name: "deleteComment",
+            pattern: "/Portfolio/DeleteComment",
+            defaults: new { controller = "Portfolio", action = "DeleteComment" }
+        );
+
+app.MapControllerRoute(
+            name: "portfolio",
+            pattern: "Portfolio/{name}",
+            defaults: new { controller = "Portfolio", action = "Index" }
+        );
+
+
 
 app.MapControllerRoute(
     name: "default",
@@ -63,5 +101,11 @@ app.MapControllerRoute(
     pattern: "{controller=Account}/{action=Logout}/{id?}");
 
 app.MapRazorPages();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapRazorPages();
+    endpoints.MapFallbackToPage("/Home");
+});
 
 app.Run();

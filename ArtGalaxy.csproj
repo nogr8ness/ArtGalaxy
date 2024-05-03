@@ -33,4 +33,8 @@
     <PackageReference Include="sendgrid" Version="9.29.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\public\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace ArtWebsite.Models
+﻿namespace ArtGalaxy.Models
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -18,8 +18,12 @@
 
         public Artwork? Artwork { get; set; }
 
-        public int? StoryId { get; set; }
+        public int? LiteratureId { get; set; }
 
-        public Story? Story { get; set; }
+        public Literature? Literature { get; set; }
+
+        public int? CommentId { get; set; }
+
+        public Comment? Comment { get; set; }
     }
 }

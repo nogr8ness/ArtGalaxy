@@ -1,10 +1,10 @@
-﻿@model ArtWebsite.Models.ViewModels.EditStoryViewModel
+﻿@model ArtGalaxy.Models.ViewModels.EditLiteratureViewModel
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    ViewData["Title"] = "Edit Story";
+    ViewData["Title"] = "Edit Literature";
 }
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -37,11 +37,11 @@
     }
 </script>
 
-<h1>Edit Story</h1>
+<h1>Edit Literature</h1>
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="EditStory" method="post">
+        <form asp-action="EditLiterature" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <input type="hidden" asp-for="Id" />
@@ -69,13 +69,13 @@
 
                 <div class="mb-3">
                     <textarea asp-for="Content" class="form-control" style="padding-top:2rem" 
-                        placeholder="Copy and paste or type your story here..."></textarea>
+                        placeholder="Copy and paste or type your literature here..."></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
             </div>
 
             <fieldset class="form-group">
-                <legend class="mt-4">Do you want to publish this story?</legend>
+                <legend class="mt-4">Do you want to publish this literature?</legend>
 
                 <div class="form-check">
                     @Html.RadioButtonFor(m => m.IsPublished, true, 
@@ -95,8 +95,10 @@
 
             <br />
 
+            @*Cancel and submit buttons*@
             <div class="form-floating">
-                <input type="submit" value="Save Changes" class="btn btn-primary" />
+                <button class="btn btn-secondary" onclick="location.href='View/Literature/@Model.Id';">Cancel</button>
+                <input type="submit" value="Save Changes" class="btn btn-primary" style="margin-left: 10px;" />
             </div>
         </form>
     </div>
@@ -118,11 +120,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete the story "@Model.Title"? This can't be undone!
+                Are you sure you want to delete the literature "@Model.Title"? This can't be undone!
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button id="confirmDeleteButton" type="button" class="btn btn-danger" onclick="confirmDelete('story')">Delete</button>
+                <button id="confirmDeleteButton" type="button" class="btn btn-danger" onclick="confirmDelete('literature')">Delete</button>
             </div>
         </div>
     </div>

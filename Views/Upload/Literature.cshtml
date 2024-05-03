@@ -1,7 +1,7 @@
-﻿@model ArtWebsite.Models.ViewModels.UploadStoryViewModel
+﻿@model ArtGalaxy.Models.ViewModels.UploadLiteratureViewModel
 
 @{
-    ViewData["Title"] = "Story";
+    ViewData["Title"] = "Literature";
 }
 
 <style>
@@ -10,12 +10,12 @@
     }
 </style>
 
-<h1>Upload Story</h1>
+<h1>Upload Literature</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Story" method="post">
+        <form asp-action="Literature" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-floating">
@@ -41,13 +41,13 @@
 
                 <div class="mb-3">
                     <textarea asp-for="Content" class="form-control" style="padding-top:2rem" 
-                        placeholder="Copy and paste or type your story here..."></textarea>
+                        placeholder="Copy and paste or type your literature here..."></textarea>
                     <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
             </div>
 
             <fieldset class="form-group">
-                <legend class="mt-4">Do you want to publish this art?</legend>
+                <legend class="mt-4">Do you want to publish this literature?</legend>
 
                 <div class="form-check">
                     @Html.RadioButtonFor(m => m.IsPublished, true, new { @class="form-check-input", @checked="checked" })

@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using ArtWebsite.Models;
+using ArtGalaxy.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +19,7 @@ using System.Net.Mail;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
-namespace ArtWebsite.Areas.Identity.Pages.Account
+namespace ArtGalaxy.Areas.Identity.Pages.Account
 {
     public class ForgotPasswordModel : PageModel
     {

@@ -1,4 +1,4 @@
-﻿namespace ArtWebsite.Models
+﻿namespace ArtGalaxy.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -23,7 +23,7 @@
         //Foreign keys
         public ICollection<Artwork> Artworks { get; set; }
 
-        public ICollection<Story> Stories { get; set; }
+        public ICollection<Literature> Stories { get; set; }
 
         public ICollection<Comment> Comments { get; set; } 
     }

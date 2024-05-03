@@ -1,0 +1,64 @@
+﻿@model ArtGalaxy.Models.ViewModels.ContactViewModel
+
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<style>
+    .form-control, .form-select {
+        width: 45%;
+    }
+</style>
+
+<partial name="_StatusMessage" for="StatusMessage" />
+
+<h1>Contact Us</h1>
+
+@{
+    string readonlyAttribute = User.Identity.IsAuthenticated ? "readonly" : "";
+}
+
+<form method="post" action="/Home/Contact">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+
+        @*If user is logged in, disable name field (use the user's display name)*@
+        @if (User.Identity.IsAuthenticated)
+        {
+            <input asp-for="Name" type="text" class="form-control" id="name" name="name" style="background-color: gray" readonly>
+        }
+        else
+        {
+            <input asp-for="Name" type="text" class="form-control" id="name" name="name">
+        }
+
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email</label>
+
+        @*If user is logged in, disable email field (use the user's email)*@
+        @if(User.Identity.IsAuthenticated)
+        {
+            <input asp-for="Email" type="email" class="form-control" id="email" name="email" style="background-color: gray" readonly>
+        }
+        else
+        {
+            <input asp-for="Email" type="email" class="form-control" id="email" name="email">
+        }
+
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Subject" class="form-label">Subject (optional)</label>
+        <input asp-for="Subject" class="form-control" id="subject" name="subject" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Message" class="form-label">Message - include as many details as possible</label>
+        <textarea asp-for="Message" class="form-control" id="message" name="message" rows="5"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+

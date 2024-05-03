@@ -347,8 +347,8 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
 
-# Local History for Visual Studio
-.localhistory/
+# Local Hiliterature for Visual Studio
+.localhiliterature/
 
 # BeatPulse healthcheck temp database
 healthchecksdb

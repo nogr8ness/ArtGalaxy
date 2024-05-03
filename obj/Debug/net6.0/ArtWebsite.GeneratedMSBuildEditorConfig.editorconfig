@@ -110,6 +110,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/Home/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb250YWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -118,12 +122,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/Portfolio/EditArt.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9ydGZvbGlvXEVkaXRBcnQuY3NodG1s
+[C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/Portfolio/EditArtwork.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9ydGZvbGlvXEVkaXRBcnR3b3JrLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/Portfolio/EditStory.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9ydGZvbGlvXEVkaXRTdG9yeS5jc2h0bWw=
+[C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/Portfolio/EditLiterature.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUG9ydGZvbGlvXEVkaXRMaXRlcmF0dXJlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/Portfolio/Index.cshtml]
@@ -154,8 +158,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXBsb2FkXEFydHdvcmsuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/Upload/Story.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXBsb2FkXFN0b3J5LmNzaHRtbA==
+[C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/Upload/Literature.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXBsb2FkXExpdGVyYXR1cmUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/kabir/source/repos/nogr8ness/ArtGalaxy/Views/_ViewImports.cshtml]

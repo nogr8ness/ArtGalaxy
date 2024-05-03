@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ArtWebsite.Migrations
+namespace ArtGalaxy.Migrations
 {
     /// <inheritdoc />
-    public partial class azuremysql : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -107,13 +107,14 @@ namespace ArtWebsite.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Image = table.Column<byte[]>(type: "longblob", nullable: false),
+                    Title = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DatePosted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     isPublished = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Views = table.Column<int>(type: "int", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -238,15 +239,16 @@ namespace ArtWebsite.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(type: "longtext", nullable: false)
+                    Content = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ReadingTime = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Content = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     DatePosted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     isPublished = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ReadingTime = table.Column<int>(type: "int", nullable: false),
+                    Views = table.Column<int>(type: "int", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -275,9 +277,9 @@ namespace ArtWebsite.Migrations
                     Likes = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ArtworkId = table.Column<int>(type: "int", nullable: false),
-                    StoryId = table.Column<int>(type: "int", nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: false)
+                    ArtworkId = table.Column<int>(type: "int", nullable: true),
+                    LiteratureId = table.Column<int>(type: "int", nullable: true),
+                    ParentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -286,8 +288,7 @@ namespace ArtWebsite.Migrations
                         name: "FK_Comments_Artworks_ArtworkId",
                         column: x => x.ArtworkId,
                         principalTable: "Artworks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Comments_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -301,8 +302,50 @@ namespace ArtWebsite.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comments_Stories_StoryId",
-                        column: x => x.StoryId,
+                        name: "FK_Comments_Stories_LiteratureId",
+                        column: x => x.LiteratureId,
+                        principalTable: "Stories",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Likes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    LikedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ArtworkId = table.Column<int>(type: "int", nullable: true),
+                    LiteratureId = table.Column<int>(type: "int", nullable: true),
+                    CommentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Likes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Likes_Artworks_ArtworkId",
+                        column: x => x.ArtworkId,
+                        principalTable: "Artworks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Likes_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Likes_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Likes_Stories_LiteratureId",
+                        column: x => x.LiteratureId,
                         principalTable: "Stories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -362,13 +405,33 @@ namespace ArtWebsite.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_StoryId",
+                name: "IX_Comments_LiteratureId",
                 table: "Comments",
-                column: "StoryId");
+                column: "LiteratureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",
                 table: "Comments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_ArtworkId",
+                table: "Likes",
+                column: "ArtworkId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_CommentId",
+                table: "Likes",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_LiteratureId",
+                table: "Likes",
+                column: "LiteratureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_UserId",
+                table: "Likes",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -396,10 +459,13 @@ namespace ArtWebsite.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "Likes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Artworks");

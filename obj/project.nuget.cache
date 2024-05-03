@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "m6J3r8xORB5bxxPflI7069VxzgTu/GywsjlA/eac8XrZXbgmrYe7WPP1xEwP4rnhee4gvINNSPzEhH92BhECDg==",
+  "dgSpecHash": "/CTZlSEYLA2a2miKM/89afjXtwitwkqLgitw4T2DWMYZ3yYIZGuTQZqYAkjrcZnnRJ9Br60S5p871oZ2xsItFg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\ArtWebsite.csproj",
+  "projectFilePath": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\ArtGalaxy.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kabir\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\kabir\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

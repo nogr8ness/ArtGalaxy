@@ -6,12 +6,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using ArtWebsite.Models;
+using ArtGalaxy.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ArtWebsite.Areas.Identity.Pages.Account.Manage
+namespace ArtGalaxy.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

@@ -1,4 +1,4 @@
-namespace ArtWebsite.Models
+namespace ArtGalaxy.Models
 {
     public class ErrorViewModel
     {

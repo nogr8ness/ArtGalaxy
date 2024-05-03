@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ArtWebsite.Models.IContent>
+﻿@model IEnumerable<ArtGalaxy.Models.Content>
 
 
 @{
@@ -6,17 +6,173 @@
 }
 
 <style>
-    /* .dropdown-menu {
-        background-color: rgba(0, 0, 0, 0.9); /* Dark background color */
+    /* General styles */
+
+    h1 {
+        display: inline-block;
+        margin-top: 10px;
+    }
+
+    strong {
+        font-size: 20px;
+    }
+
+    .stats {
+        font-size: 20px;
+        margin-bottom: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .thumbnail {
+        position: relative;
+        display: inline-block;
+        margin: 10px;
+        overflow: hidden;
+        width: 200px;
+        height: 200px;
+        background-color: #000;
+        transition: all 0.3s ease;
+    }
+
+    .thumbnail:hover {
+        opacity: 0.8;
+    }
+
+    .thumbnail:hover .overlay {
+        opacity: 1;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        opacity: 0;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+        z-index: 1;
+    }
+
+    /* .thumbnail img {
+        width: 100%;
+        height: 100%;
     } */
+
+    /* Style for the title */
+    .title {
+        white-space: nowrap; /* Prevent the title from wrapping */
+        overflow: hidden; /* Hide any overflow text */
+        text-overflow: ellipsis; /* Display ellipses for overflow text */
+        max-width: 100%; /* Limit the width of the title */
+        display: block; /* Ensure the title is displayed as a block element */
+    }
+
+    .small-pfp {
+        position: relative;
+        width: 15% !important;
+        height: 0;
+        padding-bottom: 15%;
+
+        width: 100%;
+        height: 100%;
+    }
+
+    .username {
+        margin-bottom: 17%;
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .art .user-info {
+        margin-bottom: 20%;
+    }
+
+    /*Center image horizontally and vertically, and preserve scale*/
+    .artwork-image {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        vertical-align: middle;
+        horizontal-align: middl0;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    /* CSS styles to override default text styles for the Literature thumbnail */
+    .portfolio-link {
+        color: white; /* Set text color to white */
+        text-decoration: none !important; /* Remove underline */
+    }
+
+
+    /* Pagination styles */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination-btn {
+        margin: 0 5px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;    
+    }
+
+    .pagination-btn:not([disabled]) {
+        background-color: #007bff;
+        cursor: pointer;
+        color: #fff;
+
+    }
+
+    .pagination-btn:hover:not([disabled]) {
+        background-color: #0056b3;
+    }
+
+    /* Additional styles */
+    .art-wrapper,
+    .literature-wrapper {
+        padding: 10px;
+    }
+
+    /*Dropdown styles*/
+    .dropdown {
+        margin-right: 5px;
+    }
+
+    .dropdown-menu:not(#profile-options) {
+        background-color: rgba(0, 0, 0, 0.9); /* Dark background color */
+        
+    }
 
     .dropdown-menu a {
         color: #fff; /* White text color */
     }
 
-    /* .dropdown-menu a:hover {
+    .dropdown-menu a:hover {
         background-color: rgba(0, 0, 0, 0.7); /* Darker background color on hover */
-    } */
+    }
 
     .dropdown-toggle:hover {
         color: #fff; /* Darker text color on hover */
@@ -24,84 +180,305 @@
 
 </style>
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-
-
-<h1><b>Featured</b></h1>
-
-@*Dropdowns for filtering and sorting*@
-<div class="dropdown" style="display: inline-block;">
-    <button class="btn btn-dark dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Filter: All
-    </button>
-    <div class="dropdown-menu" aria-labelledby="filterDropdown">
-        <a class="dropdown-item" href="#" data-bs-value="all">All</a>
-        <a class="dropdown-item" href="#" data-bs-value="art">Artworks</a>
-        <a class="dropdown-item" href="#" data-bs-value="story">Stories</a>
-    </div>
-</div>
-
-<div class="dropdown" style="display: inline-block;">
-    <button class="btn btn-dark dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Sort: Featured
-    </button>
-    <div class="dropdown-menu" aria-labelledby="sortDropdown">
-        <a class="dropdown-item" href="#" data-bs-value="featured">Featured</a>
-        <a class="dropdown-item" href="#" data-bs-value="newest">Newest</a>
-        <a class="dropdown-item" href="#" data-bs-value="mostliked">Most Liked</a>
-    </div>
-</div>
-
-
-<div class="col-md-4" style="display: inline-block">
-    <button class="btn btn-primary" onclick="applyFilters()">Apply</button>
-</div>
-
-@foreach (var content in Model)
-{
-    <div>
-        <h2>@content.Title</h2>
-        <p>@content.Description</p>
-        <p>Date Posted: @content.DatePosted</p>
-        <p>Likes: @content.Likes</p>
-        @if (content is Artwork)
-        {
-            <p>This is an artwork.</p>
+@*Open modal*@
+<script>
+    $(document).ready(function () {
+        if (!sessionStorage.getItem('welcomeModalShown')) {
+            // Show the modal
+            $('#welcomeModal').modal('show');
+            // Set flag indicating that the modal has been shown
+            sessionStorage.setItem('welcomeModalShown', true);
         }
-        else if (content is Story)
+    });
+</script>
+
+@*Welcome modal - only displayed once per session*@
+<div class="modal fade" id="welcomeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog d-flex justify-content-center align-items-center" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Welcome</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Welcome to Art Galaxy! As you explore the site, if you have any feedback or suggestions, please don't hesitate to share them with us through our Contact form.</p>
+                <br />
+                <p>The website is still in its early stages, and any feedback - no matter how small - is greatly appreciated!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <h1><b>Featured</b></h1>
+
+    <div class="row justify-content-center" style="margin-bottom: 15px">
+        <div class="col-md-6 text-center">
+            <!-- Search bar -->
+            <div class="d-flex">
+                <input class="form-control me-sm-2" type="search" id="search" placeholder="Search for content...">
+                <button class="btn btn-secondary my-2 my-sm-0" onclick="applyFilters()">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center" style="margin-bottom: 40px">
+        <!-- Dropdowns for filtering and sorting -->
+        <div class="col-md-6">
+            <div class="dropdown" style="display: inline-block;">
+                <!-- Filter dropdown -->
+                <button class="btn btn-dark dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Type: All
+                </button>
+                <div class="dropdown-menu" aria-labelledby="filterDropdown">
+                    <a class="dropdown-item filter" href="#" data-bs-value="all">All</a>
+                    <a class="dropdown-item filter" href="#" data-bs-value="art">Artworks</a>
+                    <a class="dropdown-item filter" href="#" data-bs-value="literature">Stories</a>
+                </div>
+            </div>
+
+            <div class="dropdown" style="display: inline-block;">
+                <!-- Sort dropdown -->
+                <button class="btn btn-dark dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort: Featured
+                </button>
+                <div class="dropdown-menu" aria-labelledby="sortDropdown">
+                    <a class="dropdown-item sort" href="#" data-bs-value="featured">Featured</a>
+                    <a class="dropdown-item sort" href="#" data-bs-value="newest">Newest</a>
+                    <a class="dropdown-item sort" href="#" data-bs-value="mostviewed">Most Viewed</a>
+                    <a class="dropdown-item sort" href="#" data-bs-value="mostliked">Most Liked</a>
+                </div>
+            </div>
+
+            <!-- Apply button -->
+            <button class="btn btn-primary" onclick="applyFilters()">Apply</button>
+        </div>
+    </div>
+
+    @{
+        string? query = "";
+
+        if (ViewData["Query"] != null)
+            query = ViewData["Query"].ToString();
+
+        @if(!string.IsNullOrWhiteSpace(query))
         {
-            <p>This is a story.</p>
+            if(Model.Any()) {
+                <h2>Search results for "@query"</h2>
+            }
+            else
+            {
+                <h4>No results found for "@query"</h4>
+            }
+        }
+    }
+    
+
+    <!-- Thumbnails for artworks and stories -->
+    <div class="thumbnails">
+        @foreach (var content in Model)
+        {
+            @if (content is Artwork artwork)
+            {
+                <!-- Artwork thumbnail -->
+                <div class="thumbnail">
+                    <a class="portfolio-link" href="/View/Art/@artwork.Id">
+                        <div class="art overlay">
+                            @*Title*@
+                            <strong class="title">@artwork.Title</strong>
+
+                            <!-- User info -->
+                            <div class="user-info">
+                                <img class="small-pfp" src="data:image/jpeg;base64,@Convert.ToBase64String(@artwork.User.ProfilePic)" alt="User Profile Picture" width="20" height="20">
+                                <span class="username">@artwork.User.DisplayName</span>
+                            </div>
+
+                            @*Date uploaded*@
+                            <span><i class="far fa-calendar-alt"></i> @artwork.DatePosted.ToString("MMMM dd, yyyy")</span>
+
+                            <!-- Likes, views, and comments -->
+                            <div class="stats" style="margin-">
+                                <span><i class="far fa-eye"></i> @artwork.Views</span>
+                                <span style="margin-left: 7%"><i class="far fa-heart"></i> @artwork.Likes</span>
+                                <span style="margin-left: 10%"><i class="far fa-comment"></i> @artwork.CommentCount</span>
+                            </div>
+
+                            
+                        </div>
+                        <img class="artwork-image" src="data:image/jpeg;base64,@Convert.ToBase64String(artwork.Image)" alt="Artwork Image">
+                    </a>
+                </div>
+            }
+            else if (content is Literature literature)
+            {
+                <!-- Literature thumbnail -->
+                <div class="thumbnail">
+                    <a class="portfolio-link" href="/View/Literature/@literature.Id">
+                        <div class="literature overlay">
+
+                            <!-- User info -->
+                            <div class="user-info">
+                                <img class="small-pfp" src="data:image/jpeg;base64,@Convert.ToBase64String(@literature.User.ProfilePic)" alt="User Profile Picture" width="20" height="20">
+                                <span class="username">@literature.User.DisplayName</span>
+                            </div>
+
+                            @*Date uploaded*@
+                            <br /><br />
+                            <span><i class="far fa-calendar-alt"></i> @literature.DatePosted.ToString("MMMM dd, yyyy")</span>
+
+                            <!-- Likes, views, and comments -->
+                            <div class="stats">
+                                <span><i class="far fa-eye"></i> @literature.Views</span>
+                                <span style="margin-left: 7%"><i class="far fa-heart"></i> @literature.Likes</span>
+                                <span style="margin-left: 10%"><i class="far fa-comment"></i> @literature.CommentCount</span>
+                            </div>
+                        </div>
+                        <div class="literature-wrapper">
+                            <strong class="title">@literature.Title</strong><br /><br />
+
+                            @if(!string.IsNullOrEmpty(literature.Description)) {
+                                @Html.Raw(literature.Description.Replace("\n", "<br>"))
+                            }
+                            else
+                            {
+                                @literature.Content
+                            }
+
+                        </div>
+                    </a>
+                </div>
+            }
         }
     </div>
-}
 
-@section Scripts {
+    @* Pagination *@
+    <div class="pagination">
+        <button class="pagination-btn" id="previous" onclick="previousPage()">Previous</button>
+        <button class="pagination-btn" id="next" onclick="nextPage()">Next</button>
+    </div>
+</div>
+    
+<script>
 
     
-    <script>
-        // Function to update dropdown button text
-        function updateDropdownText(dropdownId, newText) {
-            $(dropdownId).html(newText);
+
+
+    const filterDropdown = document.getElementById("filterDropdown");
+    const sortDropdown = document.getElementById("sortDropdown");
+    const searchBar = document.getElementById("search");
+
+    const prevButton = document.getElementById("previous");
+    const nextButton = document.getElementById("next");
+
+    let page = @Html.Raw(Json.Serialize(ViewData["PageNumber"]));
+    let maxPage = @Html.Raw(Json.Serialize(ViewData["MaxPage"]));
+
+    //Disable previous and next buttons when needed
+    if(page <= 1) {
+        prevButton.disabled = true;
+    } 
+
+    if (page >= maxPage) {
+        nextButton.disabled = true;
+    }
+
+    // Function to populate dropdowns with corresponding filters
+    function populateDropdowns() {
+        // Get the query parameters from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const type = urlParams.get('type');
+        const sort = urlParams.get('sort');
+
+        // Set the selected filter in the "Filter" dropdown
+        const filterDropdown = document.getElementById("filterDropdown");
+        if (type) {
+            filterDropdown.innerHTML = "Type: " + type.charAt(0).toUpperCase() + type.slice(1);
         }
 
-        // Event listener for filter dropdown items
-        $("#filterDropdown .dropdown-item").on("click", function () {
-            var selectedText = $(this).text();
-            updateDropdownText("#filterDropdown", "Filter: " + selectedText);
-        });
-
-        // Event listener for sort dropdown items
-        $("#sortDropdown .dropdown-item").on("click", function () {
-            var selectedText = $(this).text();
-            updateDropdownText("#sortDropdown", "Sort: " + selectedText);
-        });
-
-        // Function to apply filters
-        function applyFilters() {
-            var filter = $("#filterDropdown .dropdown-toggle").text().split(": ")[1].toLowerCase();
-            var sort = $("#sortDropdown .dropdown-toggle").text().split(": ")[1].toLowerCase();
-            window.location.href = "/Home/Index?type=" + filter + "&sort=" + sort;
+        // Set the selected filter in the "Sort" dropdown
+        const sortDropdown = document.getElementById("sortDropdown");
+        if (sort) {
+            let selectedSortText = "";
+            switch (sort) {
+                case "featured":
+                    selectedSortText = "Featured";
+                    break;
+                case "newest":
+                    selectedSortText = "Newest";
+                    break;
+                case "mostviewed":
+                    selectedSortText = "Most Viewed";
+                    break;
+                case "mostliked":
+                    selectedSortText = "Most Liked";
+                    break;
+                default:
+                    selectedSortText = "Featured";
+                    break;
+            }
+            sortDropdown.innerHTML = "Sort: " + selectedSortText;
         }
+    }
 
-    </script>
-}
+    // Call the function to populate dropdowns when the page loads
+    populateDropdowns();
+
+
+    document.querySelectorAll('.dropdown-item.filter').forEach(item => {
+        item.addEventListener('click', function () {
+            const selectedValue = this.innerHTML;
+            console.log('Selected value:', selectedValue);
+
+            // Perform actions based on the selected value
+            filterDropdown.innerHTML = "Type: " + selectedValue;
+        });
+    });
+
+    document.querySelectorAll('.dropdown-item.sort').forEach(item => {
+        item.addEventListener('click', function () {
+            const selectedValue = this.innerHTML;
+            console.log('Selected value:', selectedValue);
+
+            // Perform actions based on the selected value
+            sortDropdown.innerHTML = "Sort: " + selectedValue;
+        });
+    });
+
+    // Function to apply filters
+    function applyFilters() {
+        localStorage.setItem('currentPage', page);
+
+        // Get the text content of the dropdown buttons
+        var filter = filterDropdown.textContent.trim().split(': ')[1].replace(/\s/g, '');
+        var sort = sortDropdown.textContent.trim().split(': ')[1].replace(/\s/g, '');
+
+        window.location.href = "/Home/Index?type=" + filter.toLowerCase() + "&sort=" + sort.toLowerCase() + "&page=" + page + "&query=" + searchBar.value;
+
+        @* $.ajax({
+            type: "POST",
+            url: "/Home/Index?type=" + filter.toLowerCase() + "&sort=" + sort.toLowerCase(),
+            data: { page: page },
+        }); *@
+    }
+
+    function previousPage() {
+        if (page > 1) {
+            page--;
+            applyFilters();
+        }
+    }
+
+    function nextPage() {
+        page++;
+        applyFilters();
+    }
+
+</script>

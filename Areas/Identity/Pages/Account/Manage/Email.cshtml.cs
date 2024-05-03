@@ -9,7 +9,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using ArtWebsite.Models;
+using ArtGalaxy.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
-namespace ArtWebsite.Areas.Identity.Pages.Account.Manage
+namespace ArtGalaxy.Areas.Identity.Pages.Account.Manage
 {
     public class EmailModel : PageModel
     {

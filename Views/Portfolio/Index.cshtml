@@ -1,13 +1,18 @@
-﻿@model ArtWebsite.Models.ViewModels.PortfolioViewModel
+﻿@using System.Web
+@model ArtGalaxy.Models.ViewModels.PortfolioViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <style>
-    h2 {
+    h2, h3 {
         text-align: center;
         font-weight: bold;
+    }
+
+    h1 {
+        font-weight: bolder;
     }
 
     .image {
@@ -32,7 +37,7 @@
         
     }
 
-    .story-wrapper {
+    .literature-wrapper {
         text-align: center;
         border: 0.5px dashed lightgreen;
     }
@@ -48,9 +53,28 @@
 <br />
 <!-- Display Artworks -->
 
+@if(Model.IsSelf)
+{
+    <h1>My Portfolio</h1>
+}
+else
+{
+    <h1>@Model.PortfolioDisplayName's Portfolio</h1>
+}
+
+<br /><br />
+
 <div class="row">
     <div class="col-md-6">
-        <h2>My Art</h2>
+        @if(Model.IsSelf)
+        {
+            <h3>My Art</h3>
+        }
+        else
+        {
+            <h3>@Model.PortfolioDisplayName's Art</h3>
+        }
+
         <br />
         @if (Model.Artworks.Any())
         {
@@ -74,25 +98,39 @@
         }
         else
         {
-            <h5>No art to display. Upload your art <a href="/Upload/Artwork">here</a>!</h5>
+            <h5>No art to display. 
+                @if(Model.IsSelf)
+                {
+                    @:Upload your art <a href = "/Upload/Artwork">here</a>!
+                }
+            </h5>
         }
     </div>
 
 
     <!-- Display Stories -->
     <div class="col-md-4">
-        <h2>My Stories</h2>
+        @if(Model.IsSelf)
+        {
+            <h3>My Stories</h3>
+        }
+        
+        else {
+            <h3>@Model.PortfolioDisplayName's Stories</h3>
+        }
         <br />
         @if (Model.Stories.Any())
         {
             <ul>
-                @foreach (var story in Model.Stories)
+                @foreach (var literature in Model.Stories)
                 {
-                    <a class="portfolio-link" href="/View/Story/@story.Id">
+                    <a class="portfolio-link" href="/View/Literature/@literature.Id">
                         <li>
-                            <div class="story-wrapper">
-                                <strong>@story.Title</strong><br />
-                                @story.Description<br />
+                            <div class="literature-wrapper">
+                                <strong>@literature.Title</strong><br />
+                                @if(!string.IsNullOrEmpty(literature.Description)) {
+                                    @Html.Raw(literature.Description.Replace("\n", "<br>"))<br />
+                                }
                             </div>       
                             <br /><br />
                         </li>
@@ -102,7 +140,13 @@
         }
         else
         {
-            <h5>No stories to display. Upload a story <a href="/Upload/Story">here</a>!</h5>
+            <h5>
+                No stories to display.
+                @if (Model.IsSelf)
+                {
+                    @:Upload a literature <a href="/Upload/Literature">here</a>!
+                }
+            </h5>
         }
 
     </div>

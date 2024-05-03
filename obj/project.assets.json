@@ -11510,9 +11510,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\ArtWebsite.csproj",
-      "projectName": "ArtWebsite",
-      "projectPath": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\ArtWebsite.csproj",
+      "projectUniqueName": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\ArtGalaxy.csproj",
+      "projectName": "ArtGalaxy",
+      "projectPath": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\ArtGalaxy.csproj",
       "packagesPath": "C:\\Users\\kabir\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\obj\\",
       "projectStyle": "PackageReference",

@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using ArtWebsite.Models;
+using ArtGalaxy.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +22,7 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
-namespace ArtWebsite.Areas.Identity.Pages.Account
+namespace ArtGalaxy.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel

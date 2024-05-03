@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using ArtWebsite.Models;
+using ArtGalaxy.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Mail;
 using System.Net;
 
-namespace ArtWebsite.Areas.Identity.Pages.Account
+namespace ArtGalaxy.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class ResendEmailConfirmationModel : PageModel

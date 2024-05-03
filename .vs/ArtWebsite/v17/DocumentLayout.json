@@ -1,7 +1,112 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|c:\\users\\kabir\\source\\repos\\nogr8ness\\artgalaxy\\firebase.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|solutionrelative:firebase.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|c:\\users\\kabir\\source\\repos\\nogr8ness\\artgalaxy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|c:\\users\\kabir\\source\\repos\\nogr8ness\\artgalaxy\\views\\portfolio\\view.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|solutionrelative:views\\portfolio\\view.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtGalaxy.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:controllers\\uploadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\controllers\\portfoliocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:controllers\\portfoliocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:models\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\models\\like.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:models\\like.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\models\\literature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:models\\literature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\models\\content.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:models\\content.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\models\\viewmodels\\contactviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:models\\viewmodels\\contactviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\areas\\identity\\pages\\account\\confirmemail.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:areas\\identity\\pages\\account\\confirmemail.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\areas\\identity\\pages\\account\\manage\\email.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:areas\\identity\\pages\\account\\manage\\email.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\views\\home\\contact.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:views\\home\\contact.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\areas\\identity\\pages\\account\\manage\\changepassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:areas\\identity\\pages\\account\\manage\\changepassword.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\views\\portfolio\\editartwork.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:views\\portfolio\\editartwork.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\views\\portfolio\\editliterature.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:views\\portfolio\\editliterature.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Migrations\\20240502045950_StoryToLit2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{552E0E93-3548-43CB-A27E-AB2A3801402F}|ArtWebsite.csproj|solutionrelative:Migrations\\20240502045950_StoryToLit2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +114,327 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAF0AAAAAAAAAAAAAAGwAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-03T05:19:50.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "firebase.json",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\firebase.json",
+              "RelativeDocumentMoniker": "firebase.json",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\firebase.json",
+              "RelativeToolTip": "firebase.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-05-03T05:00:51.019Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "View.cshtml",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Portfolio\\View.cshtml",
+              "RelativeDocumentMoniker": "Views\\Portfolio\\View.cshtml",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Portfolio\\View.cshtml",
+              "RelativeToolTip": "Views\\Portfolio\\View.cshtml",
+              "ViewState": "AQIAAD0BAAAAAAAAAAAMwE8BAAB7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-02-21T22:27:00.169Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAABIBAAAAAAAAAAAMwCEBAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-02T05:15:27.609Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T05:15:27.629Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAGoAAAAAAAAAAAAjwHYAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-02T05:15:27.667Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Literature.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\Literature.cs",
+              "RelativeDocumentMoniker": "Models\\Literature.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\Literature.cs",
+              "RelativeToolTip": "Models\\Literature.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T03:42:06.21Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Comment.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\Comment.cs",
+              "RelativeDocumentMoniker": "Models\\Comment.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\Comment.cs",
+              "RelativeToolTip": "Models\\Comment.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAA7wBwAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T04:09:45.939Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "20240502045950_StoryToLit2.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Migrations\\20240502045950_StoryToLit2.cs",
+              "RelativeDocumentMoniker": "Migrations\\20240502045950_StoryToLit2.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Migrations\\20240502045950_StoryToLit2.cs",
+              "RelativeToolTip": "Migrations\\20240502045950_StoryToLit2.cs",
+              "ViewState": "AQIAAE4AAAAAAAAAAAAMwGEAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T04:59:50.572Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Like.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\Like.cs",
+              "RelativeDocumentMoniker": "Models\\Like.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\Like.cs",
+              "RelativeToolTip": "Models\\Like.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAqwBkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T04:54:44.148Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ConfirmEmail.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Areas\\Identity\\Pages\\Account\\ConfirmEmail.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\ConfirmEmail.cshtml.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Areas\\Identity\\Pages\\Account\\ConfirmEmail.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\ConfirmEmail.cshtml.cs",
+              "ViewState": "AQIAAHMAAAAAAAAAAAAMwH8AAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T00:41:14.608Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ChangePassword.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Manage\\ChangePassword.cshtml.cs",
+              "ViewState": "AQIAAHAAAAAAAAAAAAAMwHwAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-02T00:41:13.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-05-01T23:47:39.736Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Email.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Manage\\Email.cshtml.cs",
+              "ViewState": "AQIAAGsAAAAAAAAAAAAewKAAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T23:05:59.206Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAAAwDQAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T04:38:16.585Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Contact.cshtml",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Home\\Contact.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Contact.cshtml",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Home\\Contact.cshtml",
+              "RelativeToolTip": "Views\\Home\\Contact.cshtml",
+              "ViewState": "AQIAACcAAAAAAAAAAAAAwDgAAABhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-05-01T22:44:11.224Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ContactViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\ViewModels\\ContactViewModel.cs",
+              "RelativeDocumentMoniker": "Models\\ViewModels\\ContactViewModel.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\ViewModels\\ContactViewModel.cs",
+              "RelativeToolTip": "Models\\ViewModels\\ContactViewModel.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-01T22:42:33.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAjwFsAAABlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-27T05:38:51.774Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AQIAAC8AAAAAAAAAAAAiwDoAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-24T02:39:48.962Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAABIBAAAAAAAAAAAMwCEBAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-17T04:32:43.922Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Content.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\Content.cs",
+              "RelativeDocumentMoniker": "Models\\Content.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Models\\Content.cs",
+              "RelativeToolTip": "Models\\Content.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAlwBQAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T04:20:15.089Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAAAAsAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T04:13:01.906Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "EditLiterature.cshtml",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Portfolio\\EditLiterature.cshtml",
+              "RelativeDocumentMoniker": "Views\\Portfolio\\EditLiterature.cshtml",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Portfolio\\EditLiterature.cshtml",
+              "RelativeToolTip": "Views\\Portfolio\\EditLiterature.cshtml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-17T03:52:22.915Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UploadController.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Controllers\\UploadController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UploadController.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Controllers\\UploadController.cs",
+              "RelativeToolTip": "Controllers\\UploadController.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAhwKIAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-17T03:22:23.784Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "EditArtwork.cshtml",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Portfolio\\EditArtwork.cshtml",
+              "RelativeDocumentMoniker": "Views\\Portfolio\\EditArtwork.cshtml",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Views\\Portfolio\\EditArtwork.cshtml",
+              "RelativeToolTip": "Views\\Portfolio\\EditArtwork.cshtml",
+              "ViewState": "AQIAADMAAAAAAAAAAAAAAEUAAABWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-04-17T03:39:36.883Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "PortfolioController.cs",
+              "DocumentMoniker": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Controllers\\PortfolioController.cs",
+              "RelativeDocumentMoniker": "Controllers\\PortfolioController.cs",
+              "ToolTip": "C:\\Users\\kabir\\source\\repos\\nogr8ness\\ArtGalaxy\\Controllers\\PortfolioController.cs",
+              "RelativeToolTip": "Controllers\\PortfolioController.cs",
+              "ViewState": "AQIAAAcBAAAAAAAAAAAMwBMBAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-25T03:30:07.946Z"
             }
           ]
         }

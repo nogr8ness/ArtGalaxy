@@ -5,13 +5,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using ArtWebsite.Models;
+using ArtGalaxy.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace ArtWebsite.Areas.Identity.Pages.Account.Manage
+namespace ArtGalaxy.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {

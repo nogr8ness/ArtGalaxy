@@ -1,5 +1,5 @@
 ﻿@using System.Web
-@model ArtWebsite.Models.ViewModels.DisplayViewModel
+@model ArtGalaxy.Models.ViewModels.DisplayViewModel
 
 @using System.Security.Claims
 
@@ -11,6 +11,11 @@
 <style>
     b {
         font-size: 24px !important;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
     }
 
     .word-wrap {
@@ -45,12 +50,335 @@
         margin-bottom: 15px;
     }
 
+    
+
     .like-button:disabled {
         color: white;
     }
+
+    /* Comments */
+
+    .comment-text, .comment-text:focus {
+        background-color: darkslategrey;
+        color: white;
+    }
+
+    /* Comment container */
+    .comment {
+        /*border-bottom: 1px solid #ddd;*/ /* Add a bottom border to separate comments */
+        padding-bottom: 20px; /* Add padding at the bottom of each comment */
+        margin-top: 20px;
+    }
+
+    /* Comment header styles */
+    .comment-header {
+        display: flex; /* Use flexbox for layout */
+        align-items: center; /* Align items vertically */
+        margin-bottom: 10px; /* Add space below the header */
+    }
+
+    .comment-user-avatar {
+        width: 50px; /* Set width for the user avatar */
+        height: 50px; /* Set height for the user avatar */
+        border-radius: 50%; /* Make the avatar circular */
+        margin-right: 10px; /* Add space to the right of the avatar */
+    }
+
+    .comment-user-name {
+        font-weight: bold; /* Make the username bold */
+        margin-right: 10px; /* Add space to the right of the username */
+    }
+
+    .comment-posted-time {
+        color: darkgray; /* Set color for the posted time */
+    }
+
+    /* Comment content styles */
+    .comment-content {
+        margin-bottom: 10px; /* Add space below the comment content */
+    }
+
+    .comment-like-button {
+        margin-left: -10px !important;
+    }
+
+    .delete-btn {
+        margin-bottom: 12.5px;
+    }
+
+    .comment-actions {
+        margin-top: 10px; /* Add space above the comment actions */
+    }
+
+    .reply-btn {
+        margin-bottom: 15px;
+        font-size: 20px;
+        border: none;
+    }
+
+    .reply-btn:hover {
+        background-color: #445361;
+    }
+
+    /* Reply styles */
+    .comment-reply {
+        margin-left: 20px; /* Indent the reply to visually distinguish it */
+        border-left: 2px solid #ddd; /* Add a left border to indicate a reply */
+        padding-left: 10px; /* Add padding to the left of the reply */
+    }
+
 </style>
 
+@using ArtGalaxy.Data
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@inject ApplicationDbContext db;
 
+@functions {
+    string GetPostedTime(DateTime postedTime)
+    {
+        var timeSpan = DateTime.Now - postedTime;
+        if(timeSpan.TotalDays >= 365)
+        {
+            return $"{(int)timeSpan.TotalDays / 365}y ago";
+        }
+        if (timeSpan.TotalDays >= 1)
+        {
+            return $"{(int)timeSpan.TotalDays}d ago";
+        }
+        if (timeSpan.TotalHours >= 1)
+        {
+            return $"{(int)timeSpan.TotalHours}h ago";
+        }
+        if (timeSpan.TotalMinutes >= 1)
+        {
+            return $"{(int)timeSpan.TotalMinutes}m ago";
+        }
+        return "Just now";
+    }
+
+    //Return whoever is logged in at current point in time
+    User GetUser()
+    {
+        var user = UserManager.GetUserAsync(User).Result;
+
+        if (user == null)
+            return new User();
+
+        return user;
+    }
+
+    // Recursively render comments and their replies
+
+    void RenderComment(Comment comment, int indentationLevel)
+    {
+        //If comment has a parent but no indentation level, method should not be called here
+        if(comment.Parent != null && indentationLevel == 0) {
+            return;
+        }
+
+        int margin = 70;
+
+        if (indentationLevel == 0)
+        {
+            margin = 0;
+        }
+        
+
+        <div class="comment" style="margin-left: @(margin)px;">
+            <div class="comment-header">
+                <a href="/Portfolio/@comment.User.DisplayName">
+                    <img src="data:image/jpeg;base64, @Convert.ToBase64String(comment.User.ProfilePic)" alt="Profile Picture" class="comment-user-avatar">
+
+                    <span class="comment-user-name" style="display: inline">
+
+                        @comment.User.DisplayName
+
+                        @*If the commenter is the same person who uploaded original post, append their name with (Creator) *@
+                        @if (comment.User.Id == Model.Content.User.Id)
+                        {
+                            <span style="color: #00ffa8; display: inline"> (Creator)</span>
+                        }
+
+                    </span>
+                </a> 
+                        
+                <span class="comment-posted-time">@GetPostedTime(comment.DatePosted)</span>
+            </div>
+
+            @*(read more) option if comment too long*@
+            @if (comment.Content.Split('\n').Length > 5 || comment.Content.Length > 200)
+            {
+                string truncatedContent = "";
+
+                //Limit content length to 200
+                if(comment.Content.Length > 200)
+                {
+                    truncatedContent = comment.Content.Substring(0, 200);
+
+                    // Further split the truncated content into lines and take the first 5 lines
+                    if (comment.Content.Split('\n').Length > 5)
+                    {
+                        truncatedContent = string.Join("\n", truncatedContent.Split('\n').Take(5));
+                    }
+                }
+
+                //If comment is not 200 characters, then it should be truncated based on lines
+                else
+                {
+                    truncatedContent = string.Join("\n", comment.Content.Split('\n').Take(5));
+                }
+                
+               
+                
+                <div class="comment-content">
+                    @*Truncated content is initially displayed*@
+                    <p id="truncatedContent-@comment.Id">@Html.Raw(truncatedContent.Replace("\n", "<br>"))</p>
+                    <span id="expandContent-@comment.Id" style="cursor: pointer; color: deepskyblue;">(more)</span>
+
+                    @*Expanded content is displayed after button click*@
+                    <p id="expandedContent-@comment.Id">@Html.Raw(comment.Content.Replace("\n", "<br>"))</p>
+                    <span id="collapseContent-@comment.Id" style="cursor: pointer; color: deepskyblue; display: none">(less)</span>
+                </div>
+            }
+
+            @*If comment is not too long, display comment normally*@
+            else {
+                <div class="comment-content">
+                    <p>@Html.Raw(comment.Content.Replace("\n", "<br>"))</p>
+                </div>
+            }
+
+            <script>
+                $(document).ready(function () {
+
+                    $("#expandedContent-@comment.Id").hide();
+                    $("#collapseContent-@comment.Id").hide();
+
+                    $("#expandContent-@comment.Id").click(function () {
+                        $("#truncatedContent-@comment.Id").hide();
+                        $("#expandedContent-@comment.Id").show();
+                        $("#expandContent-@comment.Id").hide();
+                        $("#collapseContent-@comment.Id").show();
+                    });
+                    $("#collapseContent-@comment.Id").click(function () {
+                        $("#truncatedContent-@comment.Id").show();
+                        $("#expandedContent-@comment.Id").hide();
+                        $("#expandContent-@comment.Id").show();
+                        $("#collapseContent-@comment.Id").hide();
+                    });
+                });
+            </script>
+                    
+            @*Like, reply, and delete buttons - these are disabled if the user is not logged in*@
+            <div class="comment-actions">
+
+                <!-- HTML for liking a comment -->
+                <span data-bs-toggle="tooltip">
+
+                @{
+                    bool liked = IsCommentLiked(comment.Id);
+                }
+
+                @*If comment not liked, display white like button; otherwise, display red like btn*@
+                @if(!liked) 
+                {
+                    <button class="btn btn-link like-button comment-like-button white-color comment-action-btn" id="like-btn-comment-@comment.Id" onclick="toggleLikeComment(@comment.Id, '@liked')"
+                            style="margin-bottom: 15px; margin-left: -10px">
+
+                        <span class="counter-text">
+                            <i class="far fa-heart" id="like-icon-comment-@comment.Id"></i> <span id=like-count-comment-@comment.Id>@comment.Likes</span>
+                        </span>
+                    </button>
+                }
+                else
+                {
+                    <button class="btn btn-link like-button comment-like-button text-danger comment-action-btn" id="like-btn-comment-@comment.Id" onclick="toggleLikeComment(@comment.Id, '@liked')"
+                            style="margin-bottom: 15px">
+
+                        <span class="counter-text">
+                            <i class="fas fa-heart" id="like-icon-comment-@comment.Id"></i> <span id=like-count-comment-@comment.Id>@comment.Likes</span>
+                        </span>
+                    </button>
+                }
+
+                </span>
+                        
+                <!-- Reply button part 1 (button) - only supports 5 levels of replies (might change) -->
+                @if(indentationLevel < 5)
+                {
+                    <span data-bs-toggle="tooltip">
+                        <button class="btn reply-btn comment-action-btn" onclick="showReplyForm(@comment.Id)">Reply</button>
+                    </span>
+
+                   
+                }
+
+                @*Delete button*@
+                @if(GetUser() != null && comment.User == GetUser()) {
+                    <span data-bs-toggle="modal" data-bs-target="#deleteCommentModal-@comment.Id">
+                        <button class="btn delete-btn comment-action-btn"><i class="fas text-danger fa-trash-alt"></i></button>
+                    </span>
+
+                    <!-- Delete Comment Modal -->
+                    <div class="modal fade" id="deleteCommentModal-@comment.Id" tabindex="-1" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteCommentModalLabel">Delete Comment</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this comment? This can't be undone!
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-danger" onclick="deleteComment(@comment.Id)">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @*Reply button part 2 (reply form)*@
+                @if(indentationLevel < 5)
+                {
+                     <div id="replyForm-@(comment.Id)" style="display: none;">
+                        <textarea class="comment-text" id="replyText-@comment.Id" required></textarea> <br />
+
+                        @*Submit or cancel reply*@
+                        <button class="btn btn-secondary" onclick="hideReplyForm(@comment.Id)">Cancel</button>
+                        <button class="btn btn-primary" id="submitReply-@comment.Id" style="margin-left: 10px" onclick="submitReply(@comment.Id)">Submit</button>
+                    </div>
+                }
+            </div>
+
+            <!-- Recursively render replies -->
+            @if(comment.Replies != null && comment.Replies.Count > 0) {
+                foreach (var reply in comment.Replies)
+                {
+                    RenderComment(reply, indentationLevel + 1);
+                }
+
+                if(indentationLevel == 0)
+                {
+                    <hr class="mt-4" style="border-top: 3px dotted;">
+                }
+                
+            }
+
+                    
+        </div>
+    }
+
+    bool IsCommentLiked(int commentId)
+    {
+        var like = db.Likes.FirstOrDefault(l => l.User.Id == GetUser().Id && l.Comment.Id == commentId);
+
+        return like != null;
+    }
+}
 
 <partial name="_StatusMessage" for="StatusMessage" />
 
@@ -61,8 +389,8 @@
     var likeCountElement;
     var likeIcon;
     var likeButton;
+    var commentButton;
     var type;
-    var id;
     var liked;
 
     $(document).ready(function() { 
@@ -72,29 +400,33 @@
         type = '@ViewData["Type"]';
         id = @ViewData["Id"];
 
-        if (type == "art" || type == "Art") {
-            likeCountElement = $("#like-count-art");
-            likeIcon = $("#like-icon-art");
-            likeButton = $("#like-btn-art");
-        } else if (type == "story" || type == "Story") {
-            likeCountElement = $("#like-count-story");
-            likeIcon = $("#like-icon-story");
-            likeButton = $("#like-btn-story");
-        }
+        likeCountElement = $("#like-count");
+        likeIcon = $("#like-icon");
+        likeButton = $("#like-btn");
 
+        commentButton = $("#comment-btn");
+
+        //Disable like, comment, and reply buttons if user is not logged in
         var loggedIn = "@User.Identity.IsAuthenticated".toString().toLowerCase() === "true";
         if(!loggedIn) {
             likeButton.prop('disabled', true);
+            commentButton.prop('disabled', true);
 
-            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-              return new bootstrap.Tooltip(tooltipTriggerEl, {
-                delay: { "show": 0, "hide": 0 }, 
-                title: "Create an account or log in to like this post.",
-                placement: "top"
-              });
+            var commentActions = document.querySelectorAll('.comment-action-btn');
+            commentActions.forEach(function (action) {
+                action.disabled = true;
+            });
+
+            var interactionButtons = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            interactionButtons.forEach(function (btn) {
+                new bootstrap.Tooltip(btn, {
+                    delay: { "show": 0, "hide": 0 },
+                    title: "Create an account or log in to interact with this post.",
+                    placement: "top"
+                });
             });
         }
+
 
         
 
@@ -105,6 +437,139 @@
             likeButton.removeClass(("white-color"));
         }
     });
+
+    
+    //Comments
+    function toggleLikeComment(commentId, isLiked) {
+        var loggedIn = "@User.Identity.IsAuthenticated".toString().toLowerCase() === "true";
+
+        
+
+        if (loggedIn) {
+
+            var c_likeButton = $("#like-btn-comment-" + commentId);
+            var c_likeCountElement = $("#like-count-comment-" + commentId);
+            var c_likeIcon = $("#like-icon-comment-" + commentId);            
+
+            // Disable the like button
+            c_likeButton.prop('disabled', true);
+
+            //Add a like
+            if (isLiked == "False") {
+                var currentLikes = parseInt(c_likeCountElement.text()) + 1;
+
+                c_likeCountElement.text(currentLikes.toString());
+                c_likeIcon.addClass("fas").removeClass("far");
+                c_likeButton.addClass("text-danger");
+                c_likeButton.removeClass("white-color");
+
+                console.log("ID: " + commentId);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Portfolio/LikeComment",
+                    data: { id: commentId },
+                    success: function (response) {
+                        // Enable the like button
+                        c_likeButton.prop('disabled', false);
+
+                        c_likeButton[0].onclick = function () { toggleLikeComment(commentId, 'True'); };
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors if needed
+                        console.error("Error toggling like:", error);
+
+                        // Enable the like button
+                        c_likeButton.prop('disabled', false);
+                    }
+                });
+            }
+
+            //Remove a like
+            else {
+                var currentLikes = parseInt(c_likeCountElement.text()) - 1;
+
+                c_likeCountElement.text(currentLikes.toString());
+                c_likeIcon.addClass("far").removeClass("fas");
+                c_likeButton.removeClass("text-danger");
+                c_likeButton.addClass("white-color");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Portfolio/UnlikeComment",
+                    data: { id: commentId },
+                    success: function (response) {
+                        // Enable the like button
+                        c_likeButton.prop('disabled', false);
+
+                        c_likeButton[0].onclick = function () { toggleLikeComment(commentId, 'False'); };
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors if needed
+                        console.error("Error toggling like:", error);
+
+                        // Enable the like button
+                        c_likeButton.prop('disabled', false);
+                    }
+                });
+            }
+
+
+
+            liked = !liked;
+        }
+    }
+
+    function showReplyForm(parentCommentId) {
+        $("#replyForm-" + parentCommentId).show();
+    }
+
+    function hideReplyForm(parentCommentId) {
+        $("#replyForm-" + parentCommentId).hide();
+    }
+
+    function submitReply(parentCommentId) {
+        var replyText = $("#replyText-" + parentCommentId).val();
+
+        if (replyText.trim() == "") {
+            return;
+        }
+
+        $("#submitReply-" + parentCommentId).prop('disabled', true);
+            
+
+        $.ajax({
+            type: "POST",
+            url: "/Upload/ReplyToComment",
+            data: { parentId: parentCommentId, replyText: replyText },
+            success: function (response) {
+                // Optionally, update the UI to display the new reply
+                // You may reload the comments section or append the new reply to the existing comments list
+
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Error replying to comment:", error);
+            }
+        });
+    }
+
+    function deleteComment(commentId) {
+        $.ajax({
+            type: "POST",
+            url: "/Portfolio/DeleteComment",
+            data: { id: commentId },
+            success: function (response) {
+                // Optionally, update the UI to display the new reply
+                // You may reload the comments section or append the new reply to the existing comments list
+
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Error deleting comment:", error);
+            }
+        });
+    }
 
     function toggleLike() {
         var loggedIn = "@User.Identity.IsAuthenticated".toString().toLowerCase() === "true";
@@ -123,11 +588,16 @@
                 likeButton.addClass("text-danger");
                 likeButton.removeClass("white-color");
 
+                console.log("ID: " + id);
+
+              
+
                 $.ajax({
                     type: "POST",
                     url: "/Portfolio/Like",
                     data: { id: id, type: type },
                     success: function (response) {
+                        console.log("GYATT");
                         // Enable the like button
                         likeButton.prop('disabled', false);
                     },
@@ -174,246 +644,175 @@
         }
     }
 
-   
-
     
 </script>
 
-@* View Art *@
-@if (Model.Artwork != null) {
-    <div class="card">
-        <div class="card-body">
 
-            <!-- Header Styling (Title) -->
-            <div class="container mt-4">
-                <h1 class="display-3" style="font-weight: bolder">@Model.Artwork.Title 
-                    @if(User.Identity.IsAuthenticated && User.Identity.Name == Model.Artwork.User.UserName) {
-                        <a href="/Portfolio/EditArt?id=@Model.Artwork.Id" class="btn btn-primary">
-                            <i class="fas fa-pencil-alt"></i> Edit
-                        </a>
-                    }
-                </h1>
-            </div>
+<div class="card">
+    <div class="card-body">
 
-            <!-- Author Information above the image -->
-            <div class="container mt-4">
-                <div class="row">
-                    <div class="col-6">
-                        <img src="data:image/jpeg;base64, @Convert.ToBase64String(Model.Artwork.User.ProfilePic)" alt="Profile" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
-                        <b>@Model.Artwork.User.DisplayName</b>
-                    </div>
-                    <div class="col-6 text-end text-muted">
-                        <i class="far fa-calendar-alt"></i> @Model.Artwork.DatePosted.ToString("MMMM dd, yyyy")
-                    </div>
+        <!-- Header Styling (Title) -->
+        <div class="container mt-4">
+            <h1 class="display-3" style="font-weight: bolder">@Model.Content.Title 
+                @if(User.Identity.IsAuthenticated && User.Identity.Name == Model.Content.User.UserName) {
+                    <a href="/Portfolio/Edit@(Model.Type)/@Model.Content.Id" class="btn btn-primary">
+                        <i class="fas fa-pencil-alt"></i> Edit
+                    </a>
+                }
+            </h1>
+        </div>
+
+        <!-- Author Information above the image -->
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-6">
+                    <a href="~/Portfolio/@Model.Content.User.DisplayName">
+                        <img src="data:image/jpeg;base64, @Convert.ToBase64String(Model.Content.User.ProfilePic)" alt="Profile" class="img-thumbnail" style="max-width: 50px; max-height: 50px;">
+                        <b>@Model.Content.User.DisplayName</b>
+                    </a>
+                </div>
+                <div class="col-6 text-end text-muted">
+                    <i class="far fa-calendar-alt"></i> @Model.Content.DatePosted.ToString("MMMM dd, yyyy")
                 </div>
             </div>
+        </div>
 
+        @*If viewing an artwork, display image here*@
+        @if(Model.Type == "Artwork")
+        {
             <!-- Image Styling with Counters -->
             <div class="container mt-4 position-relative">
                 <div class="card p-4" style="position: relative; overflow: visible;">
-
-                    
-
-                    
-
                     @{
-                        var base64Image = Convert.ToBase64String(Model.Artwork.Image); 
-                                                    <img src="data:image/jpeg;base64, @base64Image" alt="Image" class="img-fluid rounded"/>
+                        var base64Image = Convert.ToBase64String(Model.Image);
+                                <img src="data:image/jpeg;base64, @base64Image" alt="@Model.Content.Title" class="img-fluid rounded" />
                     }
                 </div>
             </div>
-
+        }
+            
+        <!-- If viewing literature, display Estimated Reading Time here-->
+        @if(Model.Type == "Literature")
+        {
+            <hr class="mt-4" style="border-top: 3px solid;">
+            <div class="text-end text-muted">
+                <i class="far fa-clock"></i> @Html.Raw(@Model.ReadingTime >= 2 ? $"{Model.ReadingTime} minutes" : "<2 minutes")
+            </div>
+        }
+        
           
 
-            <!-- Description Styling -->
-            @if(!string.IsNullOrWhiteSpace(Model.Artwork.Description))
-            {
-                <div class="container mt-4">
-                    <div class="p-4">
-                        <h2>Description</h2>
-                        <p class="ms-3">@Model.Artwork.Description</p>
-                    </div>
-                </div>
-            }
-            <br>
-            <hr class="mt-4" style="border-top: 3px solid;">
-
-            <!-- Views Counter -->
-            <span class="views-counter counter-text">
-                <i class="far fa-eye"></i> @Model.Artwork.Views
-            </span>
-
-            <!-- Like Button -->
-            @{
-
-            }
-
-            <span data-bs-toggle="tooltip">
-                <button class="btn btn-link like-button white-color" id="like-btn-art" onclick="toggleLike()">
-                        
-                    <span class="counter-text">
-                        <i class="far fa-heart" id="like-icon-art"></i> <span id=like-count-art>@Model.Artwork.Likes</span>
-                    </span>
-                </button>
-            </span>
-            
-        
-            <!-- Comment Section -->
+        <!-- Description Styling -->
+        @if(!string.IsNullOrWhiteSpace(Model.Content.Description))
+        {
             <div class="container mt-4">
                 <div class="p-4">
-                    <h2>Comments</h2>
-                    @if (Model.Artwork.Comments == null)
-                    {
-                        <p>No comments yet. Be the first to comment!</p>
-                    }
-                    else
-                    {
-                        <!-- Render comments here -->
-                    }
-                </div>
-            </div>
-
-            <!-- Buttons for Interaction -->
-            <button class="btn btn-primary mt-3">Add Comment</button>
-        </div>
-    </div>
-}
-
-@*View Story*@
-@if (Model.Story != null)
-{
-    <div class="container mt-4">
-        <div class="card p-4">
-            <div class="card-body">
-
-                <!-- Title and Edit Button -->
-                <div class="d-flex justify-content-between">
-                    <h1 class="display-4" style="font-weight: bolder">@Model.Story.Title
-                        @if(User.Identity.IsAuthenticated && User.Identity.Name == Model.Story.User.UserName) {
-
-                            <a href="/Portfolio/EditStory?id=@Model.Story.Id" class="btn btn-primary">
-                                    <i class="fas fa-pencil-alt"></i> Edit
-                            </a>
-
-                        }
-                    </h1>
-
-                    <!-- Edit Button -->
-                    @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.Story.User.Email)
-                    {
-                        <a href="/Portfolio/EditStory?&id=@Model.Story.Id" class="btn btn-primary">
-                                <i class="fas fa-pencil-alt"></i> Edit
-                        </a>
-                    }
-
-                
-                </div>
-
-                <!-- Publisher Information -->
-                <div class="d-flex align-items-center mt-2">
-                    <img src="data:image/jpeg;base64, @Convert.ToBase64String(Model.Story.User.ProfilePic)" alt="Profile" class="img-thumbnail me-2" style="max-width: 50px; max-height: 50px;">
-                    <b>@Model.Story.User.DisplayName</b>
-                </div>
-
-                <!-- Date Published -->
-                <div class="text-end">
-                    <div class="text-muted">
-                        <i class="far fa-calendar-alt"></i> @Model.Story.DatePosted.ToString("MMMM dd, yyyy")
-                    </div>
-                </div>
-
-                <hr class="mt-4" style="border-top: 3px solid;">
-
-                <!-- Estimated Reading Time -->
-                <div class="text-end text-muted">
-                    <i class="far fa-clock"></i> @Html.Raw(@Model.Story.ReadingTime >= 2 ? $"{Model.Story.ReadingTime} minutes" : "<2 minutes")
-                </div>
-
-                <!-- Description -->
-                @if (!string.IsNullOrWhiteSpace(Model.Story.Description))
-                {
                     <h2>Description</h2>
-                    <p class="mt-3">@Model.Story.Description</p>     
-                }
-
-                <hr class="mt-4" style="border-top: 3px solid;">
-
-                @*FIX STORY DISPLAY IT LOOKS BAD RIGHT NOW [VIEW AND LIKE BUTTON]*@
-
-                <!-- Content -->
-                <div class="mt-3 word-wrap position-relative" style="white-space: pre-line;">
-
-                    
-
-                    
-
-                    @if (Model.Story.Content.Length > 500)
-                    {
-                        <!-- Display some content with an option to expand -->
-                        <p id="truncatedContent">@Html.Raw(HttpUtility.HtmlEncode(Model.Story.Content.Substring(0, 500)))</p>
-                        <p id="expandedContent" style="display: none;">@Html.Raw(HttpUtility.HtmlEncode(Model.Story.Content))</p>
-                        <span id="expandContent" style="cursor: pointer; color: deepskyblue;">(more)</span>
-                        <span id="collapseContent" style="cursor: pointer; color: deepskyblue; display: none">(less)</span>
-                    }
-                    else
-                    {
-                        <!-- Display the entire content if it's shorter -->
-                        <p>@Html.Raw(HttpUtility.HtmlEncode(Model.Story.Content))</p>
-                    }
+                    <p class="ms-3">@Html.Raw(Model.Content.Description.Replace("\n", "<br>"))</p>
                 </div>
-
-
-
-                <hr class="mt-4" style="border-top: 3px solid;">
-
-                <!-- Views Counter -->
-                <span class="views-counter counter-text">
-                    <i class="far fa-eye"></i> @Model.Story.Views
-                </span>
-
-                <!-- Like Button -->
-                <span data-bs-toggle="tooltip">
-                    <button class="btn btn-link like-button white-color" id="like-btn-story" onclick="toggleLike()"
-                            style="margin-bottom: 15px">
-
-                        <span class="counter-text">
-                            <i class="far fa-heart" id="like-icon-story"></i> <span id="like-count-story">@Model.Story.Likes</span>
-                        </span>
-                    </button>
-                </span>
-
-                <br /><br />
-
-                <!-- Comments Section -->
-                <div class="mt-4">
-                    <h4>Comments</h4>
-                    <!-- Add your comment section here -->
-                </div>
-
-                <!-- Button to Add Comment -->
-                <button class="btn btn-primary mt-3">Add Comment</button>
             </div>
+        }
+        <br>
+        <hr class="mt-4" style="border-top: 3px solid;">
+
+        <!-- If viewing literature, display content here -->
+        @if(Model.Type == "Literature")
+        {
+
+            if (Model.LiteratureContent.Length > 500 || Model.LiteratureContent.Split('\n').Length > 4)
+            {
+                <div class="mt-3 word-wrap position-relative" style="white-space: pre-line; margin-top: 5em">
+
+                    <!-- Display some content with an option to expand -->
+                    <p id="truncatedContent" style="margin-top: 0; max-height: calc(1.2em * 10); overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">@Html.Raw(HttpUtility.HtmlEncode(Model.LiteratureContent))...</p>
+                    <p id="expandedContent" style="display: none; margin-top: 0">@Html.Raw(Model.LiteratureContent.Replace("\n", "<br>"))</p>
+                    <span id="expandContent" style="cursor: pointer; color: deepskyblue;">(more)</span>
+                    <span id="collapseContent" style="cursor: pointer; color: deepskyblue; display: none">(less)</span>
+                </div>
+
+                <!-- JavaScript to handle expanding content -->
+                <script>
+                    document.getElementById('expandContent').addEventListener('click', function () {
+                        document.getElementById('truncatedContent').style.display = 'none';
+                        document.getElementById('expandedContent').style.display = 'block';
+                        document.getElementById('collapseContent').style.display = 'block';
+                        this.style.display = 'none';
+                    });
+
+                    document.getElementById('collapseContent').addEventListener('click', function () {
+                        document.getElementById('truncatedContent').style.display = 'block';
+                        document.getElementById('expandedContent').style.display = 'none';
+                        document.getElementById('expandContent').style.display = 'block';
+                        this.style.display = 'none';
+
+                        window.scrollTo(0, 0);
+                    });
+
+
+                </script>
+            }
+            else
+            {
+                <p>@Html.Raw(Model.LiteratureContent.Replace("\n", "<br>"))</p>
+            }
+
+            <hr class="mt-4" style="border-top: 3px solid;">
+        }
+        
+        
+        
+
+        <!-- Views and Likes -->
+        <span class="views-counter counter-text">
+            <i class="far fa-eye"></i> @Model.Content.Views
+        </span>
+
+        <span data-bs-toggle="tooltip">
+            <button class="btn btn-link like-button white-color" id="like-btn" onclick="toggleLike()">
+                        
+                <span class="counter-text">
+                    <i class="far fa-heart" id="like-icon"></i> <span id=like-count>@Model.Content.Likes</span>
+                </span>
+            </button>
+        </span>
+
+        <!-- Add Comment -->
+        <form asp-controller="Upload" asp-action="Comment" method="post">
+
+            @*Hidden fields*@
+            <input type="hidden" asp-for="Content.Id" value="@Model.Content.Id" />
+            <input type="hidden" asp-for="Type" value="@Model.Type"/>
+
+            <div class="form-floating">
+                <textarea class="form-control comment-text" placeholder="Add your comment..." asp-for="NewCommentText" required></textarea>
+            </div>
+
+            <span data-bs-toggle="tooltip">
+                <button id="comment-btn" type="submit" class="btn btn-primary mt-3">Submit Comment</button>
+            </span>
+                
+        </form>
+
+        <!-- Comment Section -->
+        <div class="container mt-4" id="commentsContainer">
+            <h2>Comments</h2>
+            @if (Model.Content.Comments == null || !Model.Content.Comments.Any())
+            {
+                <p>No comments yet. Be the first to comment!</p>
+            }
+            else
+            {
+                @foreach (var comment in Model.Content.Comments)
+                {
+                    RenderComment(comment, 0);
+                }
+            }
+
         </div>
     </div>
+</div>
 
-    <!-- JavaScript to handle expanding content -->
-    <script>
-        document.getElementById('expandContent').addEventListener('click', function () {
-            document.getElementById('truncatedContent').style.display = 'none';
-            document.getElementById('expandedContent').style.display = 'block';
-            document.getElementById('collapseContent').style.display = 'block';
-            this.style.display = 'none';
-        });
 
-        document.getElementById('collapseContent').addEventListener('click', function () {
-            document.getElementById('truncatedContent').style.display = 'block';
-            document.getElementById('expandedContent').style.display = 'none';
-            document.getElementById('expandContent').style.display = 'block';
-            this.style.display = 'none';
 
-            window.scrollTo(0, 0);
-        });
-    </script>
 
-}
 

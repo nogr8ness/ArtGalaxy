@@ -1,10 +1,11 @@
-﻿using ArtWebsite.Data;
-using ArtWebsite.Models;
-using ArtWebsite.Models.ViewModels;
+﻿using ArtGalaxy.Data;
+using ArtGalaxy.Models;
+using ArtGalaxy.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace ArtWebsite.Controllers
+namespace ArtGalaxy.Controllers
 {
     public class UploadController : Controller
     {
@@ -31,7 +32,7 @@ namespace ArtWebsite.Controllers
             return View();
         }
 
-        public IActionResult Story()
+        public IActionResult Literature()
         {
             if (!User.Identity.IsAuthenticated)
                 return LocalRedirect("/Identity/Account/Login");
@@ -85,31 +86,31 @@ namespace ArtWebsite.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken] 
-        public async Task<IActionResult> Story(UploadStoryViewModel model)
+        public async Task<IActionResult> Literature(UploadLiteratureViewModel model)
         {
             if(ModelState.IsValid)
             {
-                Story story = new Story();
+                Literature literature = new Literature();
 
-                story.User = await _userManager.GetUserAsync(User);
-                story.DatePosted = DateTime.Now;
+                literature.User = await _userManager.GetUserAsync(User);
+                literature.DatePosted = DateTime.Now;
 
-                story.Title = model.Title.Trim('\n', '\r');
+                literature.Title = model.Title.Trim('\n', '\r');
 
                 if(!string.IsNullOrEmpty(model.Description))
-                    story.Description = model.Description.Trim('\n', '\r');
+                    literature.Description = model.Description.Trim('\n', '\r');
 
-                story.Content = model.Content.Trim('\n', '\r');
-                story.isPublished = model.IsPublished;
+                literature.Content = model.Content.Trim('\n', '\r');
+                literature.isPublished = model.IsPublished;
 
-                story.ReadingTime = CalculateReadingTime(story.Content);
+                literature.ReadingTime = CalculateReadingTime(literature.Content);
 
-                _db.Stories.Add(story);
+                _db.Stories.Add(literature);
                 _db.SaveChanges();
 
                 TempData["StatusMessage"] = "Upload Successful!";
 
-                return LocalRedirect($"/View/Story/{story.Id}");
+                return LocalRedirect($"/View/Literature/{literature.Id}");
             }
 
             return View(model);
@@ -138,6 +139,94 @@ namespace ArtWebsite.Controllers
             }
 
             return wordCount / 200;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Comment(DisplayViewModel viewModel)
+        {
+            if(string.IsNullOrWhiteSpace(viewModel.NewCommentText))
+            {
+                return Redirect(Request.Headers["Referer"].ToString());
+            }
+
+            //If user isn't logged in, exit the method
+            if(!User.Identity.IsAuthenticated)
+            {
+                TempData["StatusMessage"] = "Your comment was not added. Please contact us if this keeps occurring.";
+
+                return Redirect(Request.Headers["Referer"].ToString());
+            }
+
+            Artwork artwork = null;
+            Literature literature = null;
+
+            //Whichever type the upload is, assign the corresponding variable to store in comment
+            if(viewModel.Type == "Artwork")
+                artwork = await _db.Artworks.FirstOrDefaultAsync(a => a.Id == viewModel.Content.Id);
+
+            if(viewModel.Type == "Literature")
+                literature = await _db.Stories.FirstOrDefaultAsync(s => s.Id == viewModel.Content.Id);
+
+            Comment comment = new Comment
+            {
+                Content = viewModel.NewCommentText,
+                DatePosted = DateTime.Now,
+                User = await _userManager.GetUserAsync(User),
+                Artwork = artwork,
+                Literature = literature,
+                Parent = viewModel.ParentComment
+            };
+
+            _db.Comments.Add(comment);
+            _db.SaveChanges();
+
+            TempData["StatusMessage"] = "Your comment was successfully added.";
+
+            return Redirect(Request.Headers["Referer"].ToString());
+        }
+
+        // Reply to comment
+        [HttpPost]
+        public async Task<IActionResult> ReplyToComment(int parentId, string replyText)
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                TempData["StatusMessage"] = "You need to be logged in to perform that action.";
+                return LocalRedirect("/Identity/Account/Login");
+            }
+
+            if(string.IsNullOrEmpty(replyText))
+            {
+                TempData["StatusMessage"] = "Please do not submit a blank reply.";
+                return Redirect(Request.Headers["Referer"].ToString());
+            }
+
+            var parentComment = await _db.Comments
+                .Include(c => c.Artwork) 
+                .Include(c => c.Literature)
+                .FirstOrDefaultAsync(c => c.Id == parentId);
+
+            // Create a new comment as a reply
+            var newComment = new Comment
+            {
+                Content = replyText,
+                DatePosted = DateTime.Now,
+                ParentId = parentId,
+                Parent = parentComment,
+                User = user,
+                Artwork = parentComment.Artwork,
+                Literature = parentComment.Literature,
+            };
+
+            _db.Comments.Add(newComment);
+            parentComment.Replies.Add(newComment);
+
+            await _db.SaveChangesAsync();
+
+            TempData["StatusMessage"] = "Your comment was successfully added.";
+            return Redirect(Request.Headers["Referer"].ToString()); // Redirect to the appropriate page after replying
         }
     }
 }

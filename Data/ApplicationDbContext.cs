@@ -1,9 +1,9 @@
-﻿using ArtWebsite.Models;
+﻿using ArtGalaxy.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace ArtWebsite.Data
+namespace ArtGalaxy.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -16,7 +16,7 @@ namespace ArtWebsite.Data
 
         public DbSet<Artwork> Artworks { get; set; }
 
-        public DbSet<Story> Stories { get; set; }
+        public DbSet<Literature> Stories { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
 
@@ -31,7 +31,7 @@ namespace ArtWebsite.Data
                 .HasOne(e => e.User)
                 .WithMany(e => e.Artworks);
 
-            modelBuilder.Entity<Story>()
+            modelBuilder.Entity<Literature>()
                 .HasOne(e => e.User)
                 .WithMany(e => e.Stories);
 
@@ -39,6 +39,12 @@ namespace ArtWebsite.Data
             modelBuilder.Entity<Comment>()
                 .HasOne(e => e.User)
                 .WithMany(e => e.Comments);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Parent)
+                .WithMany(c => c.Replies)
+                .HasForeignKey(c => c.ParentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             modelBuilder.Entity<Like>()
@@ -48,11 +54,20 @@ namespace ArtWebsite.Data
                 .OnDelete(DeleteBehavior.Cascade);
             
             modelBuilder.Entity<Like>()
-                .HasOne(l => l.Story)
+                .HasOne(l => l.Literature)
                 .WithMany()
-                .HasForeignKey(l => l.StoryId)
+                .HasForeignKey(l => l.LiteratureId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Like>()
+                .HasOne(l => l.Comment)
+                .WithMany()
+                .HasForeignKey(l => l.CommentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
         }
     }
+
+    
+
 }

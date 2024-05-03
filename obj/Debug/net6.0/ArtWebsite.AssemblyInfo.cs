@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArtWebsite")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+959897eb76e12bc9df1aca4a4213cf0ad6a0b7c6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+972d5e4fee0b94e7add0cf4623f76dc7cc23d82a")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArtWebsite")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArtWebsite")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

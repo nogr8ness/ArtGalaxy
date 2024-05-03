@@ -12,7 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using ArtWebsite.Models;
+using ArtGalaxy.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,7 @@ using System.Diagnostics;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
-namespace ArtWebsite.Areas.Identity.Pages.Account
+namespace ArtGalaxy.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {

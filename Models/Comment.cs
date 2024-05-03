@@ -1,4 +1,4 @@
-﻿namespace ArtWebsite.Models
+﻿namespace ArtGalaxy.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -24,10 +24,16 @@
         [Required]
         public User User { get; set; }
 
-        public Artwork Artwork { get; set; }
+        public Artwork? Artwork { get; set; }
 
-        public Story Story { get; set; }
+        public Literature? Literature { get; set; }
 
-        public Comment Parent { get; set; }
+        //Replies
+
+        public int? ParentId;
+
+        public Comment? Parent { get; set; }
+
+        public ICollection<Comment> Replies { get; set; }
     }
 }
