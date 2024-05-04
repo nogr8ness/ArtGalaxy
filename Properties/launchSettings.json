@@ -14,7 +14,6 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "SendGridAPI": "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"
       }
     }
   },
